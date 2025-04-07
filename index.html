@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background-color: #25D366; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #128C7E; }
+  </style>
+</head>
+<body>
+  <h2>Demande d'assistance</h2>
+  <form id="waForm">
+    <label>Prénom :</label>
+    <input type="text" id="prenom" required>
+
+    <label>Nom :</label>
+    <input type="text" id="nom" required>
+
+    <label>Lieu de départ :</label>
+    <input type="text" id="depart" required>
+
+    <label>Lieu d'arrivée :</label>
+    <input type="text" id="arrivee" required>
+
+    <label>Description du problème :</label>
+    <textarea id="probleme" required></textarea>
+
+    <button type="submit">Envoyer sur WhatsApp</button>
+  </form>
+
+  <script>
+    document.getElementById("waForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const prenom = encodeURIComponent(document.getElementById("prenom").value);
+      const nom = encodeURIComponent(document.getElementById("nom").value);
+      const depart = encodeURIComponent(document.getElementById("depart").value);
+      const arrivee = encodeURIComponent(document.getElementById("arrivee").value);
+      const probleme = encodeURIComponent(document.getElementById("probleme").value);
+
+      const message = `Bonjour, je m'appelle ${prenom} ${nom}. Je suis actuellement à ${depart} et je souhaite me rendre à ${arrivee}. Voici le problème rencontré : ${probleme}.`;
+      const numero = "41786882735";
+      const lien = `https://wa.me/${numero}?text=${message}`;
+
+      window.open(lien, "_blank");
+    });
+  </script>
+</body>
+</html>
