@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulaire WhatsApp</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; text-align: center; }
     input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
     button { background-color: #25D366; color: white; border: none; cursor: pointer; }
     button:hover { background-color: #128C7E; }
+    img.logo { max-width: 200px; margin-bottom: 20px; }
   </style>
 </head>
 <body>
+  <img src="LOGO-PELICHET.jpg" alt="Logo Pelichet" class="logo">
   <h2>Demande d'assistance</h2>
   <form id="waForm">
     <label>Prénom :</label>
@@ -42,7 +44,7 @@
       const arrivee = encodeURIComponent(document.getElementById("arrivee").value);
       const probleme = encodeURIComponent(document.getElementById("probleme").value);
 
-      const message = `Bonjour, je m'appelle ${prenom} ${nom}. Je suis actuellement à ${depart} et je souhaite me rendre à ${arrivee}. Voici le problème rencontré : ${probleme}.`;
+      const message = `Bonjour, je m'appelle ${prenom} ${nom}. Mes biens à déménager viennent de ${depart} et doivent arriver à ${arrivee}. Voici le problème rencontré : ${probleme}.`;
       const numero = "41796882735";
       const lien = `https://wa.me/${numero}?text=${message}`;
 
