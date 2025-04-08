@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulaire WhatsApp</title>
+  <title>Formulaire WhatsApp + Google Form</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; text-align: center; }
     input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
@@ -38,17 +38,33 @@
     document.getElementById("waForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const prenom = encodeURIComponent(document.getElementById("prenom").value);
-      const nom = encodeURIComponent(document.getElementById("nom").value);
-      const depart = encodeURIComponent(document.getElementById("depart").value);
-      const arrivee = encodeURIComponent(document.getElementById("arrivee").value);
-      const probleme = encodeURIComponent(document.getElementById("probleme").value);
+      const prenom = document.getElementById("prenom").value;
+      const nom = document.getElementById("nom").value;
+      const depart = document.getElementById("depart").value;
+      const arrivee = document.getElementById("arrivee").value;
+      const probleme = document.getElementById("probleme").value;
 
-      const message = `Bonjour, je m'appelle ${prenom} ${nom}.\nMes biens à déménager proviennent de ${depart} et doivent arriver à ${arrivee}.\nVoici le problème rencontré : ${probleme}.`;
+      // Message WhatsApp
+      const message = `Bonjour, je m'appelle ${prenom} ${nom}.\nJe suis actuellement à ${depart} et je souhaite me rendre à ${arrivee}.\nVoici le problème rencontré : ${probleme}.`;
+      const encodedMsg = encodeURIComponent(message);
       const numero = "41796882735";
-      const lien = `https://wa.me/${numero}?text=${message}`;
+      const waLink = `https://wa.me/${numero}?text=${encodedMsg}`;
 
-      window.open(lien, "_blank");
+      // Envoi en arrière-plan vers Google Form
+      const formData = new FormData();
+      formData.append("entry.1354393347", prenom);
+      formData.append("entry.355136538", nom);
+      formData.append("entry.278165480", depart);
+      formData.append("entry.2112021244", arrivee);
+      formData.append("entry.647802721", probleme);
+
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSe1Zxj5LkHeQPp4nPQwXjmfGsj1-KlK4wpo-zjCKxCRtrMn8g/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      }).then(() => {
+        window.open(waLink, "_blank");
+      });
     });
   </script>
 </body>
