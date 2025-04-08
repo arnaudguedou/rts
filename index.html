@@ -50,13 +50,13 @@
       const numero = "41796882735";
       const waLink = `https://wa.me/${numero}?text=${encodedMsg}`;
 
-      // Envoi en arrière-plan vers Google Form
+      // Envoi en arrière-plan vers Google Form avec les bons champs
       const formData = new FormData();
-      formData.append("entry.1354393347", prenom);
-      formData.append("entry.355136538", nom);
-      formData.append("entry.278165480", depart);
-      formData.append("entry.2112021244", arrivee);
-      formData.append("entry.647802721", probleme);
+      formData.append("entry.1473253160", prenom);
+      formData.append("entry.859380924", nom);
+      formData.append("entry.1639857911", depart);
+      formData.append("entry.572357675", arrivee);
+      formData.append("entry.1899005106", probleme);
 
       fetch("https://docs.google.com/forms/d/e/1FAIpQLSe1Zxj5LkHeQPp4nPQwXjmfGsj1-KlK4wpo-zjCKxCRtrMn8g/formResponse", {
         method: "POST",
