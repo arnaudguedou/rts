@@ -58,8 +58,8 @@
       const arrivee = document.getElementById("arrivee").value;
       const probleme = document.getElementById("probleme").value;
 
-      // Message WhatsApp personnalisé
-      const message = `Je suis ${prenom} ${nom},\n mon email est ${email}, \nmon bureau actuel est ${depart} \n et mon bureau de destination est ${arrivee}.\n Je rencontre le problème : ${probleme}`;
+      // Message WhatsApp avec texte en gras et retours à la ligne
+      const message = `Je suis *${prenom} ${nom}*,\nmon email est *${email}*,\nmon bureau actuel est *${depart}*\net mon bureau de destination est *${arrivee}*.\nJe rencontre le problème : *${probleme}*.`;
       const encodedMsg = encodeURIComponent(message);
       const numero = "41796882735";
       const waLink = `https://wa.me/${numero}?text=${encodedMsg}`;
