@@ -16,6 +16,9 @@
   <img src="LOGO-PELICHET.jpg" alt="Logo Pelichet" class="logo">
   <h2>Demande d'assistance</h2>
   <form id="waForm">
+    <label>Adresse e-mail :</label>
+    <input type="email" id="email" required>
+
     <label>Prénom :</label>
     <input type="text" id="prenom" required>
 
@@ -35,6 +38,7 @@
   </form>
 
   <form id="hiddenForm" action="https://docs.google.com/forms/d/e/1FAIpQLSe1Zxj5LkHeQPp4nPQwXjmfGsj1-KlK4wpo-zjCKxCRtrMn8g/formResponse" method="POST" target="hidden_iframe" style="display: none;">
+    <input name="entry.965005948" id="formEmail">
     <input name="entry.1473253160" id="formPrenom">
     <input name="entry.859380924" id="formNom">
     <input name="entry.1639857911" id="formDepart">
@@ -47,19 +51,21 @@
     document.getElementById("waForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
+      const email = document.getElementById("email").value;
       const prenom = document.getElementById("prenom").value;
       const nom = document.getElementById("nom").value;
       const depart = document.getElementById("depart").value;
       const arrivee = document.getElementById("arrivee").value;
       const probleme = document.getElementById("probleme").value;
 
-      // Préparation du message WhatsApp
-      const message = `Bonjour, je m'appelle ${prenom} ${nom}.\nJe suis actuellement à ${depart} et je souhaite me rendre à ${arrivee}.\nVoici le problème rencontré : ${probleme}.`;
+      // Message WhatsApp personnalisé
+      const message = `Je suis ${prenom} ${nom},/n mon email est ${email}, /nmon bureau actuel est ${depart} /n et mon bureau de destination est ${arrivee}./n Je rencontre le problème : ${probleme}`;
       const encodedMsg = encodeURIComponent(message);
       const numero = "41796882735";
       const waLink = `https://wa.me/${numero}?text=${encodedMsg}`;
 
       // Remplir et soumettre le formulaire caché
+      document.getElementById("formEmail").value = email;
       document.getElementById("formPrenom").value = prenom;
       document.getElementById("formNom").value = nom;
       document.getElementById("formDepart").value = depart;
