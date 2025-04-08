@@ -34,6 +34,15 @@
     <button type="submit">Envoyer sur WhatsApp</button>
   </form>
 
+  <form id="hiddenForm" action="https://docs.google.com/forms/d/e/1FAIpQLSe1Zxj5LkHeQPp4nPQwXjmfGsj1-KlK4wpo-zjCKxCRtrMn8g/formResponse" method="POST" target="hidden_iframe" style="display: none;">
+    <input name="entry.1473253160" id="formPrenom">
+    <input name="entry.859380924" id="formNom">
+    <input name="entry.1639857911" id="formDepart">
+    <input name="entry.572357675" id="formArrivee">
+    <input name="entry.1899005106" id="formProbleme">
+  </form>
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
   <script>
     document.getElementById("waForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -44,27 +53,24 @@
       const arrivee = document.getElementById("arrivee").value;
       const probleme = document.getElementById("probleme").value;
 
-      // Message WhatsApp
+      // Préparation du message WhatsApp
       const message = `Bonjour, je m'appelle ${prenom} ${nom}.\nJe suis actuellement à ${depart} et je souhaite me rendre à ${arrivee}.\nVoici le problème rencontré : ${probleme}.`;
       const encodedMsg = encodeURIComponent(message);
       const numero = "41796882735";
       const waLink = `https://wa.me/${numero}?text=${encodedMsg}`;
 
-      // Envoi en arrière-plan vers Google Form avec les bons champs
-      const formData = new FormData();
-      formData.append("entry.1473253160", prenom);
-      formData.append("entry.859380924", nom);
-      formData.append("entry.1639857911", depart);
-      formData.append("entry.572357675", arrivee);
-      formData.append("entry.1899005106", probleme);
+      // Remplir et soumettre le formulaire caché
+      document.getElementById("formPrenom").value = prenom;
+      document.getElementById("formNom").value = nom;
+      document.getElementById("formDepart").value = depart;
+      document.getElementById("formArrivee").value = arrivee;
+      document.getElementById("formProbleme").value = probleme;
+      document.getElementById("hiddenForm").submit();
 
-      fetch("https://docs.google.com/forms/d/e/1FAIpQLSe1Zxj5LkHeQPp4nPQwXjmfGsj1-KlK4wpo-zjCKxCRtrMn8g/formResponse", {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-      }).then(() => {
+      // Ouvrir WhatsApp
+      setTimeout(() => {
         window.open(waLink, "_blank");
-      });
+      }, 300);
     });
   </script>
 </body>
